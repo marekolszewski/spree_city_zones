@@ -2,6 +2,7 @@ require 'spree_core'
 
 module SpreeCityZones
   class Engine < Rails::Engine
+    engine_name 'spree_city_zones'
 
     config.autoload_paths += %W(#{config.root}/lib)
 
