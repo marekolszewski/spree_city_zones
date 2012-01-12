@@ -8,7 +8,7 @@ class City < ActiveRecord::Base
   
   def state_and_city
     if state
-      state.name + '- ' + name
+      state.name + ' - ' + name
     else
       name
     end
