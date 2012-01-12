@@ -8,14 +8,14 @@ Zone.class_eval do
       when "Zone"
         zone_member.zoneable.include?(address)
       when "Country"
-        zone_member.zoneable == address.country
+        zone_member.zoneable_id == address.country_id
       when "City"
         zone_member.zoneable == City.find(:first, :conditions => ['UPPER(name) = :name and state_id = :state_id', {:name => address.city.upcase, :state_id => address.state.id}])
         #Break out so State Zones aren't also found for taxation
         #this allows a default state tax if no city found.... probably breaks shipping calculators though?!?!
         break
       when "State"
-        zone_member.zoneable == address.state
+        zone_member.zoneable_id == address.state_id
       else
         false
       end
