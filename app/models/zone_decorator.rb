@@ -17,13 +17,12 @@ Zone.class_eval do
             { :name => address.city.upcase, :state_id => address.state.id }
           ]
         )
+        
+        result = false
         if address_city.present?
-          result = (zone_member.zoneable_id == address_city.id)
-          
-          #Break out so State Zones aren't also found for taxation
-          #this allows a default state tax if no city found.... probably breaks shipping calculators though?!?!
-          break if result
+          result = (zone_member.zoneable_id == address_city.id)          
         end
+        result
       when "State"
         zone_member.zoneable_id == address.state_id
       else
