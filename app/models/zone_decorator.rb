@@ -10,13 +10,17 @@ Zone.class_eval do
       when "Country"
         zone_member.zoneable_id == address.country_id
       when "City"
-        address_city = City.find(
-          :first, 
-          :conditions => [
-            'UPPER(name) = :name and state_id = :state_id', 
-            { :name => address.city.upcase, :state_id => address.state.id }
-          ]
-        )
+        address_city = nil
+        
+        if address.city.present? && address.state.present?
+          address_city = City.find(
+            :first, 
+            :conditions => [
+              'UPPER(name) = :name and state_id = :state_id', 
+              { :name => address.city.upcase, :state_id => address.state.id }
+            ]
+          )
+        end
         
         result = false
         if address_city.present?
