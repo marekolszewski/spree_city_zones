@@ -2,6 +2,8 @@ Zone.class_eval do
   def include?(address)
     return false unless address
 
+    address_city = find_city(address)
+    
     # NOTE: This is complicated by the fact that include? for HMP is broken in Rails 2.1 (so we use awkward index method)
     members.any? do |zone_member|
       case zone_member.zoneable_type
@@ -10,18 +12,6 @@ Zone.class_eval do
       when "Country"
         zone_member.zoneable_id == address.country_id
       when "City"
-        address_city = nil
-        
-        if address.city.present? && address.state.present?
-          address_city = City.find(
-            :first, 
-            :conditions => [
-              'UPPER(name) = :name and state_id = :state_id', 
-              { :name => address.city.upcase, :state_id => address.state.id }
-            ]
-          )
-        end
-        
         result = false
         if address_city.present?
           result = (zone_member.zoneable_id == address_city.id)          
@@ -62,5 +52,18 @@ Zone.class_eval do
       end
     }.flatten.compact.uniq
   end
-  
+
+  def find_city(address)
+    address_city = nil
+    if address.city.present? && address.state.present?
+      address_city = City.find(
+        :first, 
+        :conditions => [
+          'UPPER(name) = :name and state_id = :state_id', 
+          { :name => address.city.upcase, :state_id => address.state.id }
+        ]
+      )
+    end
+    address_city
+  end
 end
