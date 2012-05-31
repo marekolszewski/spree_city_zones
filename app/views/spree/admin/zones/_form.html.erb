@@ -22,13 +22,8 @@
     <%= zone_form.radio_button("kind", "city", {:id => "city_based"}) %>
     <%= t("city_based") %>
   </label> &nbsp;
-  <label class="sub">
-    <%= zone_form.radio_button("kind", "zone", {:id => "zone_based"}) %>
-    <%= t("zone_based") %>
-  </label>
 </p>
 
 <%= render "member_type", :type => "country", :zone_form => zone_form %>
 <%= render "member_type", :type => "state", :zone_form => zone_form %>
 <%= render "member_type", :type => "city", :zone_form => zone_form %>
-<%= render "member_type", :type => "zone", :zone_form => zone_form %>
