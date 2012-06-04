@@ -1,9 +1,17 @@
 module Spree
   Zone.class_eval do
+    def self.match(address)
+      return unless matches = self.order('created_at').select { |zone| zone.include? address }
+      ['city', 'state', 'country'].each do |zone_kind|
+        if match = matches.detect { |zone| zone_kind == zone.kind }
+          return match
+        end
+      end
+      matches.first
+    end
+
     def include?(address)
       return false unless address
-
-      address_city = find_city(address)
 
       # NOTE: This is complicated by the fact that include? for HMP is broken in Rails 2.1 (so we use awkward index method)
       members.any? do |zone_member|
@@ -14,9 +22,12 @@ module Spree
           zone_member.zoneable_id == address.country_id
         when "Spree::City"
           result = false
+          address_city = find_city(address)
+
           if address_city.present?
             result = (zone_member.zoneable_id == address_city.id)
           end
+
           result
         when "Spree::State"
           zone_member.zoneable_id == address.state_id
