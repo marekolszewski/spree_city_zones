@@ -1,0 +1,2 @@
+<!-- insert_after "#country_members" -->
+<%= render :partial => 'city_members', :locals => {:zone_form => zone_form } %>
