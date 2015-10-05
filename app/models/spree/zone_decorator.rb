@@ -79,6 +79,14 @@ module Spree
       address_city
     end
 
+    def city_ids
+     if kind == 'city'
+       members.pluck(:zoneable_id)
+     else
+       []
+     end
+   end
+
     def city_ids=(ids)
      set_zone_members(ids, 'Spree::City')
    end
