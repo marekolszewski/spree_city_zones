@@ -78,5 +78,9 @@ module Spree
       end
       address_city
     end
+
+    def city_ids=(ids)
+     set_zone_members(ids, 'Spree::City')
+   end
   end
 end
