@@ -1,22 +1,25 @@
-<%= render :partial => 'spree/admin/shared/configuration_menu' %>
+<% content_for :page_title do %>
+  <%= plural_resource_name(Spree::City) %>
+<% end %>
 
-<h1><%= t("Cities") %></h1>
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_city), new_admin_country_state_city_url(@country, @state), { :class => "btn-success", :icon => 'add', :id => 'new_state_link' } %>
+<% end %>
 
-<p>
-  <label for="country"><%= t('country') %></label>
-  <select id="country" class='observe_field' data-base-url="<%=admin_states_path(:format => :js)%>?country_id=" data-update="#state-list">
-  <%= options_from_collection_for_select(@countries, :id, :name, @country.id) %>
+<div data-hook="country" class="form-group">
+  <%= label_tag :country, Spree.t(:country) %>
+  <select id="country" class='observe_field select2' data-base-url="<%=admin_states_path(:format => :js) %>?country_id=" data-update="#state-list">
+    <%= options_from_collection_for_select(@countries, :id, :name, @country.id) %>
   </select>
-</p>
+</div>
 
-<p>
-  <label for="state"><%= t('state') %></label>
-  <select id="state" class='observe_field' data-base-url="<%=admin_cities_path(:format => :js)%>?country_id=<%= @country.id %>&state_id=" data-update="#city-list">
-  <%= options_from_collection_for_select(@states, :id, :name, @state.id) %>
+
+<div data-hook="state" class="form-group">
+  <%= label_tag :state, Spree.t(:state) %>
+  <select id="state" class='observe_field select2' data-base-url="<%=admin_cities_path(:format => :js)%>?country_id=<%= @country.id %>&state_id=" data-update="#city-list">
+    <%= options_from_collection_for_select(@states, :id, :name, @state.id) %>
   </select>
-</p>
-
-<%= image_tag "spinner.gif", :plugin=>"spree", :style => "display:none", :id => 'busy_indicator' %>
+</div>
 
 <div id="city-list">
   <%=render :partial => 'city_list'%>
