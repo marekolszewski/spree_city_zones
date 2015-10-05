@@ -1,2 +1,2 @@
-<!-- insert_bottom ".col-md-6:last-child" -->
+<!-- insert_after "#country_members" -->
 <%= render :partial => 'city_members', :locals => {:zone_form => zone_form } %>
