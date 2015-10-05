@@ -1,2 +1,2 @@
-<!-- insert_after "erb[loud]:contains(':partial => ')" -->
- <%= render :partial => 'city_members', :locals => { :type => 'city', :zone_form => zone_form } %>
+<!-- insert_bottom ".col-md-6:last-child" -->
+<%= render :partial => 'city_members', :locals => {:zone_form => zone_form } %>
