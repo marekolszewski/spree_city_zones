@@ -1,5 +1,5 @@
-<!-- insert_after "[data-hook=type] ul li:eq(2)" -->
-      
+<!-- insert_bottom "[data-hook=type]" -->
+
 <div class="radio">
   <%= label_tag :state_based do %>
     <%= zone_form.radio_button('kind', 'city', { :id => 'city_based' }) %>
