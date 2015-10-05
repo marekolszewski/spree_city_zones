@@ -1,7 +1,7 @@
 <!-- insert_bottom "[data-hook=type]" -->
 
 <div class="radio">
-  <%= label_tag :state_based do %>
+  <%= label_tag :city_based do %>
     <%= zone_form.radio_button('kind', 'city', { :id => 'city_based' }) %>
     <%= Spree.t(:city_based) %>
   <% end %>
